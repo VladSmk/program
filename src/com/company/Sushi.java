@@ -4,8 +4,8 @@ import java.io.IOException;
 
 public class Sushi {
     void wok_sushi() throws IOException {
-        Product p3 = new Product();
-        p3.parsing(
+        Product p = new Product();
+        p.parsing(
                 "~~~sushiwok",
                 "https://sushiwok.ua/vin/menu/sety/",
                 "card-wrapper--grid  ",
@@ -15,6 +15,18 @@ public class Sushi {
                 "https://schema.org/priceCurrency"
         );
     }
+    /*void yama_sushi() throws IOException {
+        Product p = new Product();
+        p.parsing(
+                "~~~sushiyama",
+                "https://yama.vn.ua/shop/sushi-ta-roli/filadelfiya",
+                "col-md-4 product-single aos-init",            //yt ghfw.' ,j cfqn utq
+                "product-single__title__link",
+                "",
+                "product-single__title__price",
+                ""
+        );
+    }*/
 
 
 }
