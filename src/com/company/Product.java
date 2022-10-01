@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.util.*;
 
 public class Product {
-
     String Name, Price;
     HashMap<String, String> map = new HashMap<>();
     LinkedHashMap<String, String> sortedMap = new LinkedHashMap<>();
