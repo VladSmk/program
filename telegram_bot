@@ -1,0 +1,123 @@
+------- pom.xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>mytesty228_bot</groupId>
+    <artifactId>mytesty228_bot</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>6</source>
+                    <target>6</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+    <dependency>
+        <groupId>org.telegram</groupId>
+        <artifactId>telegrambots</artifactId>
+        <version>6.1.0</version>
+    </dependency>
+
+</dependencies>
+
+</project>
+
+
+------- simpleBot.java
+
+import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.objects.Update;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+
+public class simpleBot extends TelegramLongPollingBot {
+    @Override
+    public void onUpdateReceived(Update update) {
+
+        System.out.println(update.getMessage().getFrom().getFirstName() + ": " + update.getMessage().getText());
+        String command = update.getMessage().getText();
+        if (command.equals("/run")) {
+            String message = "Run!";
+            SendMessage response = new SendMessage();
+            response.setChatId(update.getMessage().getChatId().toString());
+            response.setText(message);
+            try { execute(response); }
+            catch (TelegramApiException E) { E.printStackTrace(); }
+        }
+
+
+        String spam_message = command;
+        String message, Ss2 = "", Ss3 = "";
+        boolean s2 = false;
+        for(int i=0; i<spam_message.length(); i++){
+            if(spam_message.toCharArray()[i]==' '){
+                s2 = true;
+                if(Ss2 != "" && s2==true){
+                    i++;
+                    while(i<spam_message.length()){
+                        Ss3 += spam_message.toCharArray()[i];
+                        i++;
+                    }
+                    break;
+                }
+            }
+            else if(s2 == true){
+                Ss2 += spam_message.toCharArray()[i];
+            }
+        }
+        int i_Ss3 = Integer.parseInt(Ss3);
+        if (spam_message.toCharArray()[0] == '/' && spam_message.toCharArray()[1] == 's' && spam_message.toCharArray()[2] == ' ') {
+            for (int i = 0; i < i_Ss3; i++) {
+
+                message = Ss2;
+
+                SendMessage response = new SendMessage();
+                response.setChatId(update.getMessage().getChatId().toString());
+                response.setText(message);
+                try { execute(response); }
+                catch (TelegramApiException E) { E.printStackTrace(); }
+            }
+        }
+    }
+
+    @Override
+    public String getBotUsername() {
+        // TODO
+        return "mytesty228_bot";
+    }
+
+    @Override
+    public String getBotToken() {
+        // TODO
+        return "5765803262:AAHu4dZScvPcX904G9OxcHqfGx7u8UZXuAQ";
+    }
+}
+
+------- Main.java
+
+import org.telegram.telegrambots.meta.TelegramBotsApi;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
+
+public class Main {
+    public  static void main(String[] args){
+        try {
+            TelegramBotsApi botsApi = new TelegramBotsApi(DefaultBotSession.class);
+            botsApi.registerBot(new simpleBot());
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
